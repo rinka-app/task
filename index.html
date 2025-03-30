@@ -1379,3 +1379,29 @@
                 userProfile.style.display = 'flex';
                 // 実際の環境ではユーザー情報を取得する処理が必要
                 showSyncStatus('synced',
+// ログイン状態のUIを明確に
+document.addEventListener('DOMContentLoaded', function() {
+  const loginBtn = document.getElementById('login-btn');
+  if (loginBtn) {
+    loginBtn.addEventListener('click', function() {
+      // API連携なしのデモ同期モード
+      console.log('ログインボタンがクリックされました');
+      if (!isLoggedIn) {
+        console.log('ログイン処理を実行');
+        isLoggedIn = true;
+        document.getElementById('login-text').textContent = 'ログアウト';
+        document.getElementById('user-profile').style.display = 'flex';
+        document.getElementById('user-name').textContent = 'デモユーザー';
+        document.getElementById('user-avatar').src = 'https://via.placeholder.com/30';
+        showSyncStatus('synced', '同期済み');
+        alert('デモモードでログインしました。実際のGoogle連携には認証情報の設定が必要です。');
+      } else {
+        console.log('ログアウト処理を実行');
+        isLoggedIn = false;
+        document.getElementById('login-text').textContent = 'Googleでログイン';
+        document.getElementById('user-profile').style.display = 'none';
+        showSyncStatus('info', '同期していません');
+      }
+    }, true); // useCapture: trueでイベントを確実に捕捉
+  }
+});
